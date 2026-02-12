@@ -1,3 +1,18 @@
+// ===== NHẠC NỀN =====
+const bgm = document.getElementById("bgm");
+
+function startMusic() {
+  bgm.volume = 0.5;
+  bgm.play().catch(() => {});
+  document.removeEventListener("click", startMusic);
+  document.removeEventListener("touchstart", startMusic);
+}
+
+// Phát nhạc khi người dùng chạm lần đầu
+document.addEventListener("click", startMusic);
+document.addEventListener("touchstart", startMusic);
+
+// ===== VẬT RƠI + POPUP =====
 const tetItems = ["🎆", "✨", "🎇", "🌟"];
 
 const cards = [
@@ -16,7 +31,6 @@ const cards = [
 ];
 
 let lastIndex = -1;
-
 const popup = document.getElementById("popup");
 const popupImg = document.getElementById("popup-img");
 const popupText = document.getElementById("popup-text");
@@ -25,28 +39,22 @@ const popupContent = document.querySelector(".popup-content");
 function createTetItem() {
   const item = document.createElement("div");
   item.className = "flower";
-  item.innerText = tetItems[Math.floor(Math.random() * tetItems.length)];
-
+  item.textContent = tetItems[Math.floor(Math.random() * tetItems.length)];
   item.style.left = Math.random() * window.innerWidth + "px";
   item.style.animationDuration = 8 + Math.random() * 3 + "s";
 
   item.onclick = () => {
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * cards.length);
-    } while (randomIndex === lastIndex);
-
-    lastIndex = randomIndex;
+    let i;
+    do { i = Math.floor(Math.random() * cards.length); }
+    while (i === lastIndex);
+    lastIndex = i;
 
     popupImg.classList.remove("show");
-    popupImg.src = cards[randomIndex].img;
-    popupText.innerHTML = cards[randomIndex].text;
-
+    popupImg.src = cards[i].img;
+    popupText.innerHTML = cards[i].text;
     popup.style.display = "flex";
 
-    setTimeout(() => {
-      popupImg.classList.add("show");
-    }, 50);
+    setTimeout(() => popupImg.classList.add("show"), 50);
   };
 
   document.body.appendChild(item);
@@ -56,46 +64,44 @@ function createTetItem() {
 setInterval(createTetItem, 1000);
 
 popup.onclick = () => popup.style.display = "none";
-popupContent.onclick = (e) => e.stopPropagation();
-
+popupContent.onclick = e => e.stopPropagation();
 
 // ===== PHÁO HOA =====
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
 }
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+resize();
+addEventListener("resize", resize);
 
 class Firework {
   constructor() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height * 0.6;
     this.particles = [];
-    this.color = `hsla(${Math.random() * 360}, 80%, 65%, 0.7)`;
+    this.color = `hsla(${Math.random() * 360},80%,65%,0.8)`;
 
     for (let i = 0; i < 20; i++) {
       this.particles.push({
         x: this.x,
         y: this.y,
-        angle: Math.random() * 2 * Math.PI,
-        speed: Math.random() * 1.5 + 0.5,
-        life: 60
+        a: Math.random() * Math.PI * 2,
+        s: Math.random() * 1.5 + 0.5,
+        l: 60
       });
     }
   }
 
   update() {
     this.particles.forEach(p => {
-      p.x += Math.cos(p.angle) * p.speed;
-      p.y += Math.sin(p.angle) * p.speed;
-      p.life--;
+      p.x += Math.cos(p.a) * p.s;
+      p.y += Math.sin(p.a) * p.s;
+      p.l--;
     });
-
-    this.particles = this.particles.filter(p => p.life > 0);
+    this.particles = this.particles.filter(p => p.l > 0);
   }
 
   draw() {
@@ -114,29 +120,14 @@ function animate() {
   ctx.fillStyle = "rgba(0,0,20,0.2)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  if (Math.random() < 0.02) {
-    fireworks.push(new Firework());
-  }
+  if (Math.random() < 0.03) fireworks.push(new Firework());
 
-  fireworks.forEach((fw, index) => {
-    fw.update();
-    fw.draw();
-    if (fw.particles.length === 0) {
-      fireworks.splice(index, 1);
-    }
+  fireworks.forEach((f, i) => {
+    f.update();
+    f.draw();
+    if (!f.particles.length) fireworks.splice(i, 1);
   });
 
   requestAnimationFrame(animate);
 }
-
 animate();
-
-
-// ===== PHÁT NHẠC =====
-document.addEventListener("click", function () {
-  const bgm = document.getElementById("bgm");
-  if (bgm && bgm.paused) {
-    bgm.volume = 0.5;
-    bgm.play();
-  }
-}, { once: true });
