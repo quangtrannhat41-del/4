@@ -6,7 +6,6 @@
   <title>New Year 2026</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <canvas id="fireworks"></canvas>
@@ -18,12 +17,13 @@
   <div class="popup-content">
     <img id="popup-img" src="">
     <p id="popup-text"></p>
-    <div class="close">(Chạm ra ngoài để đóng)</div>
+    <div>(Chạm ra ngoài để đóng)</div>
   </div>
 </div>
 
-<!-- 🎵 NHẠC NỀN -->
-<audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <script src="script.js"></script>
 </body>
