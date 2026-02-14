@@ -13,12 +13,12 @@ document.addEventListener("click", startMusic);
 // ================== SAO RƠI ==================
 const icons = ["⭐","🌟","✨","☆","★","✧","✦","⋆"];
 const cards = [
-  { img:"anh1.jpg", text:"❤️Chúc chị Hoa năm mới sẽ có thêm thật là nhiều niềm vui ❤️" },
+  { img:"anh1.jpg", text:"❤️Chúc Hường năm mới sẽ có thêm thật là nhiều niềm vui ❤️" },
   { img:"anh2.jpg", text:"❤️‍🩹Năm mới mong chị sẽ luôn được bình an và nhẹ lòng❤️‍🩹" },
-  { img:"anh3.jpg", text:"😍Chúc chị Hoa sang năm mới sẽ ngày càng xinh đẹp hơn cả 😍" },
+  { img:"anh3.jpg", text:"😍Chúc chị Hường sang năm mới sẽ ngày càng xinh đẹp hơn cả 😍" },
   { img:"anh4.jpg", text:"🍀Mong rằng sang năm mới sẽ có thật nhiều sự may mắn và tốt đẹp tới với chị🍀" },
-  { img:"anh5.jpg", text:"💕Mong chị Hoa sẽ luôn nhận được sự yêu thương và trân trọng 💕" },
-  { img:"anh6.jpg", text:"☁️Chúc cho chị Hoa có một năm nhẹ nhàng và ít phải lo nghĩ nhe ☁️" },
+  { img:"anh5.jpg", text:"💕Mong chị Hường sẽ luôn nhận được sự yêu thương và trân trọng 💕" },
+  { img:"anh6.jpg", text:"☁️Chúc cho Hường có một năm nhẹ nhàng và ít phải lo nghĩ nhe ☁️" },
   { img:"anh7.jpg", text:"💜Mong cho chị có một năm thật thuận lợi và hạnh phúc 💜"}
 ];
 
